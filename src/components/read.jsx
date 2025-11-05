@@ -12,7 +12,7 @@ const [myMovies, setMovie] = useState([]);
 useEffect(() => {
 
   // Send a GET request to fetch movie data from the provided URL
-  axios.get('https://data-rep-mern-application.github.io/dataserver/movies.json')
+  axios.get('http://localhost:3000/api/movies')
     .then((response) => {
       // Log the fetched movie array to the console for debugging
       console.log(response.data.myArray);

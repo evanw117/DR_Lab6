@@ -2,6 +2,9 @@
 
 // Import the useState hook from React for managing component state
 import { useState } from "react";
+import axios
+ from "axios";
+
 
 // Define the Create functional component
 function Create() {
@@ -13,8 +16,21 @@ function Create() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevents the page from reloading on form submit
-    console.log(title, year, poster); // Logs the form data to the console
-  }
+  
+  
+  console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
+  
+  const movie = {
+    title: title,
+    year: year,
+    poster: poster
+  };
+
+  axios.post('http://localhost:3000/api/movies', movie)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err.data));
+};
+
 
   // Render the form UI
   return (
