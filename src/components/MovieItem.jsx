@@ -1,6 +1,6 @@
 // Import the Card component from react-bootstrap
 import Card from 'react-bootstrap/Card';
-
+import {Link} from 'react-router-dom'
 // Define the MovieItem functional component and accept props as a parameter
 const MovieItem = (props) => {
     return (
@@ -9,15 +9,16 @@ const MovieItem = (props) => {
             <Card className="text-center">
                 <Card.Body>
                     {/* Display the movie title */}
-                    <Card.Title>{props.mymovie.Title}</Card.Title>
+                    <Card.Title>{props.mymovie.title}</Card.Title>
 
                     {/* Display the movie poster image */}
-                    <img src={props.mymovie.Poster} />
+                    <img src={props.mymovie.poster} />
 
                 </Card.Body>
 
                 {/* Display the movie release year in the card footer */}
-                <Card.Footer className="text-muted">{props.mymovie.Year}</Card.Footer>
+                <Card.Footer className="text-muted">{props.mymovie.year}</Card.Footer>
+                <Link className='btn btn-primary' to={"/edit/"+props.mymovie._id} >edit</Link>
             </Card>
         </div>
     );
