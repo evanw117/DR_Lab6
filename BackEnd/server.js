@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 
 import mongoose from 'mongoose';
-mongoose.connect('mongodb+srv://admin:admin@cluster0.si8dhu8.mongodb.net/?appName=Cluster0');
+mongoose.connect('mongodb+srv://admin:admin@cluster0.qxa1s2a.mongodb.net/?appName=Cluster0');
 
 const movieSchema = new mongoose.Schema({
   title: String,
@@ -72,7 +72,13 @@ app.post('/api/movies', async (req, res) => {
   console.log('Movie saved:', newMovie);  
   res.status(201).json({ message: 'Movie created successfully', movie: newMovie });
 })
-
+app.delete('/api/movie/:id', async (req, res) => {
+  
+        console.log('Deleting movie with ID:', req.params.id);
+        const movie = await movieModel.findByIdAndDelete(req.params.id);
+        res.status(200).send({ message: "Movie deleted successfully", movie });
+        
+    });
 
 app.get('/api/movie/:id', async (req, res) => {
   const movie = await movieModel.findById(req.params.id);

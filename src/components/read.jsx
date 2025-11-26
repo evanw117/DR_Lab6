@@ -6,6 +6,16 @@ import Movies from "./movies";
 // Define the Read functional component
 const Read = () => {
 const [myMovies, setMovie] = useState([]);
+const Reload = () => {
+    console.log("Reloading movie data...");
+        axios.get('http://localhost:3000/api/movies')
+            .then((response) => {
+                setMovie(response.data.myArray);
+            })
+            .catch((error) => {
+                console.log("Error reloading data:", error);
+            });
+}
   // Create a constant 'data' containing an array of movie objects
   
 // useEffect hook runs after the component renders
@@ -33,7 +43,7 @@ useEffect(() => {
       <h1>Hello from read component</h1> 
 
       {/* Render the Movies component and pass the movie data as props */}
-      <Movies myMovies={myMovies}></Movies>
+      <Movies myMovies={myMovies} Reload={Reload}></Movies>
     </div>   
   );
 }
