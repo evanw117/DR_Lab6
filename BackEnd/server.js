@@ -5,6 +5,17 @@ const port = 3000;
 import cors from 'cors';
 app.use(cors());
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get the current file path and directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from the Vite build folder
+app.use(express.static(path.join(__dirname, '../dist')));
+
+
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -89,6 +100,13 @@ app.put('/api/movie/:id', async (req, res) => {
     const updatedMovie = await movieModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updatedMovie);
 });
+
+// Handle all GET requests
+app.get('/{*any}', (req, res) => {
+  // Send index.html from the dist folder
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
